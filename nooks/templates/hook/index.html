@@ -7,6 +7,7 @@
 {% endblock %}
 
 {% block content %}
+<meta name="csrf-token" content="{{ csrf_token() }}"> 
 <div class="d-flex justify-content-between align-items-center mb-4">
     <h1 class="text-info">
         <i class="bi bi-stopwatch me-2"></i>Hook - Productivity Timer
@@ -430,10 +431,14 @@ document.addEventListener('DOMContentLoaded', function() {
     function deleteCustomPreset(presetName, element) {
         if (!confirm(`Delete preset "${presetName}"?`)) return;
         
+        // Get the CSRF Token from the meta tag
+        const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+        
         fetch('/hook/delete_preset', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
+                'X-CSRFToken': csrfToken 
             },
             body: JSON.stringify({
                 preset_name: presetName
@@ -461,6 +466,9 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     function updateTheme() {
+        // Get the CSRF Token from the meta tag
+        const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+        
         const theme = themeSelector.value;
         const syncGlobal = syncGlobalTheme.checked;
         
@@ -468,6 +476,7 @@ document.addEventListener('DOMContentLoaded', function() {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
+                'X-CSRFToken': csrfToken 
             },
             body: JSON.stringify({
                 theme: theme,
@@ -493,12 +502,16 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     function toggleAmbientSounds() {
+        // Get the CSRF Token from the meta tag
+        const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+        
         const enabled = ambientSounds.checked;
         
         fetch('/hook/toggle_ambient_sounds', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
+                'X-CSRFToken': csrfToken 
             },
             body: JSON.stringify({
                 enabled: enabled
@@ -533,6 +546,9 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     function saveCustomPreset() {
+        // Get the CSRF Token from the meta tag
+        const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+        
         const formData = {
             name: document.getElementById('preset-name').value.trim(),
             duration: parseInt(document.getElementById('preset-duration').value),
@@ -550,6 +566,7 @@ document.addEventListener('DOMContentLoaded', function() {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
+                'X-CSRFToken': csrfToken 
             },
             body: JSON.stringify(formData)
         })
@@ -605,4 +622,5 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 </script>
+
 {% endblock %}
