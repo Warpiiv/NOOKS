@@ -21,8 +21,6 @@ logger = logging.getLogger(__name__)
 # Constants
 QUIZ_TIME_LIMIT_SECONDS = 300  # 5 minutes
 
-nooks_club_bp = Blueprint('nooks_club', __name__)
-
 class ClubForm(FlaskForm):
     name = StringField('Club Name', validators=[DataRequired(), Length(min=3, max=100)])
     description = TextAreaField('Description', validators=[Length(max=500)])
@@ -1376,3 +1374,4 @@ def get_question_by_id(question_id):
         logger.error(f"Error fetching question {question_id}: {str(e)}", exc_info=True)
         return None
 QuizQuestionModel.get_question_by_id = staticmethod(get_question_by_id)
+
