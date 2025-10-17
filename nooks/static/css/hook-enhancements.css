@@ -287,4 +287,24 @@
         top: 0.5rem;
         right: 0.5rem;
     }
+
+}
+/* In static/css/hook-enhancements.css */
+
+/* Target the theme settings popover by its ID */
+#theme-settings {
+    /* Set a solid white background with full opacity for maximum contrast */
+    background-color: #ffffff !important; 
+    /* Ensure the opacity isn't being inherited as transparent */
+    opacity: 1.0 !important; 
+    /* Adding a defined box-shadow and border improves visual separation from the background */
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+    border: 1px solid rgba(0, 0, 0, 0.1); 
+}
+
+/* Ensure the card header and body parts of the popover are also opaque */
+#theme-settings .card-header,
+#theme-settings .card-body {
+    background-color: inherit; /* Inherits the solid white background */
+    opacity: 1.0;
 }
