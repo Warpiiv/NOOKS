@@ -5,6 +5,7 @@ from bson import ObjectId
 from datetime import datetime, timedelta
 import logging
 from models import QuizQuestionModel, ClubModel, ClubPostModel, ClubChatMessageModel, FlashcardModel, QuizAnswerModel, UserProgressModel, UserModel
+from . import nooks_club_bp
 
 # Add template helper function
 @nooks_club_bp.app_template_global()
@@ -1374,4 +1375,5 @@ def get_question_by_id(question_id):
         logger.error(f"Error fetching question {question_id}: {str(e)}", exc_info=True)
         return None
 QuizQuestionModel.get_question_by_id = staticmethod(get_question_by_id)
+
 
